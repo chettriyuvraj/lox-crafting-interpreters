@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"io"
 	"os"
-	// "github.com/chettriyuvraj/lox-crafting-interpreters/pkg/scanner"
+
+	"github.com/chettriyuvraj/lox-crafting-interpreters/pkg/scanner"
 )
 
-var start, current, line int = 0, 0, 0
+/* var hadError bool = false - might not need this because of Go's multiple return types*/
 
 func main() {
-	// scanner.ScanTokens()
 	if len(os.Args) < 2 {
 		runPrompt()
 	} else if len(os.Args) == 2 {
@@ -50,9 +50,36 @@ func runFile(filePath string) error {
 		return err
 	}
 
+	sc := scanner.Scanner{}
+
+	tokens, err := sc.ScanTokens()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(tokens)
+
 	return nil
 }
 
-func run(source string) {
+func run(source string) error {
 	fmt.Println("running run!")
+	sc := scanner.Scanner{}
+
+	tokens, err := sc.ScanTokens()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(tokens)
+
+	return nil
+}
+
+func handleError(line int, message string) {
+	report(line, "", message)
+}
+
+func report(line int, where string, message string) {
+	fmt.Printf("[Line %d] Error %s: %s", line, where, message)
 }
