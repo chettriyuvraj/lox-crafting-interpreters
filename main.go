@@ -45,12 +45,13 @@ func runPrompt() error {
 func runFile(filePath string) error {
 	fmt.Println("Run file!")
 
-	_, err := os.Open(filePath)
+	/* TODO: Is this the best way to get source code from file (?) */
+	b, err := os.ReadFile(filePath)
 	if err != nil {
 		return err
 	}
 
-	sc := scanner.Scanner{}
+	sc := scanner.Scanner{Source: string(b)}
 
 	tokens, err := sc.ScanTokens()
 	if err != nil {
@@ -64,7 +65,7 @@ func runFile(filePath string) error {
 
 func run(source string) error {
 	fmt.Println("running run!")
-	sc := scanner.Scanner{}
+	sc := scanner.Scanner{Source: source}
 
 	tokens, err := sc.ScanTokens()
 	if err != nil {
