@@ -7,7 +7,7 @@ I am in the process of porting the Lox programming language, as described in [Pa
 
 # Usage
 
-- _go run [filename]_ OR _go run_ which starts a prompt for you to input your tokens.
+- _go run main.go [filename]_ OR _go run main.go_ which starts a prompt for you to input source code.
 
 # Output
 
